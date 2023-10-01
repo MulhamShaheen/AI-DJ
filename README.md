@@ -16,8 +16,7 @@ AI-Сервис генерации плейлистов музыки на осн
 
 Исследования показали, что люди ([синестеты и несинестеты](https://ru.wikipedia.org/wiki/%D0%A1%D0%B8%D0%BD%D0%B5%D1%81%D1%82%D0%B5%D0%B7%D0%B8%D1%8F)) ассоциируют звуки с цветами, и это скорее проиходит в подсознании. Музыкант Александр Скрябин разработал sound-to-color circle of fifths, где присвоин цвет к каждой тональности в круге квинт.
 
-![Scriabin's sound-to-color ](images/colortosound.png)
-
+<img src="images/colortosound.png" alt="drawing" width="300"/>
 Scriabin's sound-to-color 
 
 ### To be continued…
