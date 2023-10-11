@@ -75,7 +75,7 @@
 
 ### 2.2 Блок-схема решения
 
-[AI DJ architecture draft.pdf](images/AI DJ architecture draft.pdf)
+[AI DJ architecture draft.pdf](images/AI DJ architecture draft.jpg)
 
 ### 2.3 Этапы решения задачи
 
