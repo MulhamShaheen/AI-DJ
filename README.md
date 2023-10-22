@@ -34,3 +34,7 @@ Scriabin's sound-to-color
 ## Веб-приложение
 
 Для пользоватильского взаимодействия, разрабатывается [приложение](https://github.com/MulhamShaheen/AI-DJ/tree/frontend) на React.js которое будет по HTTP обращаться к API системы.
+
+## Поиск песен по запросу
+
+[Прототип поиска по текстам песен](https://colab.research.google.com/drive/1-H0D_RljalRm_CjWGgyferDdBFaxziv_?usp=sharing)
