@@ -37,11 +37,11 @@ Scriabin's sound-to-color
 
 # Эксперименты
 
-## 🆕 Поиск песен по запросу
+## Поиск песен по запросу
 
 [Прототип поиска по текстам песен](https://colab.research.google.com/drive/1-H0D_RljalRm_CjWGgyferDdBFaxziv_?usp=sharing)
 
 
-## 🆕 Классификации активностей людей
+## Классификации активностей людей
 
 [Обучение ResNet](https://colab.research.google.com/drive/1qkxuD9yYbE-79tDIxeQM3vBVfsIxdtXz?usp=sharing)
