@@ -45,3 +45,15 @@ Scriabin's sound-to-color
 ## Классификации активностей людей
 
 [Обучение ResNet](https://colab.research.google.com/drive/1qkxuD9yYbE-79tDIxeQM3vBVfsIxdtXz?usp=sharing)
+
+# Демо
+
+## Главная страница
+
+<img src="images/main.png" alt="drawing" width="300"/>
+
+## Пример результатов 
+
+<img src="images/playlist.png" alt="drawing" width="300"/>
+
+
