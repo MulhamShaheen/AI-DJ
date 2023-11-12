@@ -1,8 +1,16 @@
 import logging
 import time
 from pathlib import Path
+from urllib.parse import urlencode
 from scrapy.selector import Selector
 import scrapy
+
+API_KEY = 'c3859fa1-1fc5-4f4b-97d8-58e9c2546e79' # DO NOT COMMIT
+
+def get_scrapeops_url(url):
+    payload = {'api_key': API_KEY, 'url': url}
+    proxy_url = 'https://proxy.scrapeops.io/v1/?' + urlencode(payload)
+    return proxy_url
 
 
 class SongsSpider(scrapy.Spider):
@@ -14,6 +22,10 @@ class SongsSpider(scrapy.Spider):
         ]
         for url in urls:
             yield scrapy.Request(url=url, callback=self.parse)
+            #
+            # yield scrapy.Request(url=get_scrapeops_url(url), callback=self.parse, method='POST',
+            #              body=json.dumps(my_data), headers={'Content-Type': 'application/json'})
+
 
     def parse(self, response):
 
@@ -28,14 +40,34 @@ class SongsSpider(scrapy.Spider):
             camelot = str(info[2]).replace(" ", "").replace("\r\n", " ")
             popularity = str(info[3]).replace(" ", "").replace("\r\n", " ")
 
-            next_page = song.css("::attr(href)").get()
+            next_page = 'https://tunebat.com'+ song.css("::attr(href)").get()
 
-            yield {
+            data = {
                 "artist": artist,
                 "title": title,
                 "key": key,
                 "BPM": bpm,
                 "Camelot": camelot,
                 "Popularity": popularity,
-                "next_page": next_page,
             }
+
+            yield response.follow(url=get_scrapeops_url(next_page), callback=self.parse_details, cb_kwargs={
+                "song_data": data})
+
+    def parse_details(self, response, song_data):
+        infos = response.css('span.ant-progress-text')
+        values = []
+        for info in infos:
+            a = info.css("::text").get()
+            values.append(a)
+
+        song_data["energy"] = int(values[1].strip())
+        song_data["danceability"] = int(values[2].strip())
+        song_data["happiness"] = int(values[3].strip())
+        song_data["accousticness"] = int(values[4].strip())
+        song_data["instrumentalness"] = int(values[5].strip())
+        song_data["liveness"] = int(values[6].strip())
+        song_data["speechiness"] = int(values[7].strip())
+        song_data["loudness"] = int(values[7].strip())
+
+        yield song_data
