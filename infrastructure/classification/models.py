@@ -1,5 +1,6 @@
 from abc import ABC, abstractmethod
 
+import PIL
 import torch
 import torchvision.models
 from PIL import Image
@@ -32,7 +33,7 @@ class DummyClassifier(Classifier):
         logging.info('Loading Classifier')
         self.model_path = detection_model_path
 
-    def predict_class(self, image: np.ndarray) -> ClassifierPrediction:
+    def predict_class(self, image: PIL.Image) -> ClassifierPrediction:
         dummy_class = Activity(activity_id=0)
         prediction = ClassifierPrediction(predicted_class=dummy_class, contour_probability=0.98)
         return prediction
