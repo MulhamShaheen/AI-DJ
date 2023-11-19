@@ -1,4 +1,33 @@
 import requests
+import json
+from urllib.parse import urlencode
+
+
+with open('token.json', 'r') as fp:
+    TOKEN = json.load(fp)["scrapeops_token"]
+
+dic = {
+    "n": "title",
+    "as": "artists",
+    "an": "album",
+    "p": "popularity",
+    "c": "camelot",
+    "b": "BPM",
+    "k": "key",
+    "ac": "acousticness",
+    "h": "happiness",
+    "i": "instrumentalness",
+    "li": "liveness",
+    "lo": "loudness",
+    "da": "danceability",
+    "e": "energy",
+}
+
+def get_scrapeops_url(url):
+    payload = {'api_key': TOKEN, 'url': url}
+    proxy_url = 'https://proxy.scrapeops.io/v1/?' + urlencode(payload)
+    return proxy_url
+
 
 def search_tracks(term, page):
     """
@@ -29,8 +58,9 @@ def search_tracks(term, page):
         'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36'
     }
 
-    response = requests.get(url, headers=headers)
-    return response
-
-# Example usage
-search_tracks('a', 1)
+    response = requests.get(get_scrapeops_url(url),)
+    item = json.loads(response.content)['data']['items'][0]
+    info = {
+        v: item[list(dic.keys())[i]] for i, v in enumerate(dic.values())
+    }
+    return info
