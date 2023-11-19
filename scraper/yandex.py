@@ -7,8 +7,6 @@ with open('token.json', 'r') as fp:
     TOKEN = json.load(fp)["yt_token"]
 
 
-id = 2832563
-
 client = Client(TOKEN).init()
 
 type_to_name = {
@@ -24,23 +22,25 @@ type_to_name = {
 
 
 def search_playlists(query):
-    search_result = client.search(query).tracks
-
+    search_result = client.search(query).playlists
+    results = []
     for result in search_result.results:
         playlist = result.fetch_tracks()
 
         for track_short in playlist:
+
             track = track_short.track
             artists = track.artists
             album = track.albums[0]
             info = {
                 "id": track.id,
                 "title": track.title,
-                "artists": ' - ' + ', '.join(artist.name for artist in artists),
+                "artists": ', '.join(artist.name for artist in artists),
                 "album": album.title,
                 "album_id": album.id,
             }
-            print(info)
+            results.append(info)
+    return results
 
 
 def send_search_request_and_print_result(query):
