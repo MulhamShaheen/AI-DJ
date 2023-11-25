@@ -1,7 +1,8 @@
 import os
 import json
 from yandex_music import Client
-
+import csv
+import datetime
 
 with open('token.json', 'r') as fp:
     TOKEN = json.load(fp)["yt_token"]
@@ -24,6 +25,8 @@ type_to_name = {
 def search_playlists(query):
     search_result = client.search(query).playlists
     results = []
+    writer = csv.writer(open("yandex.csv", "a+", newline="", encoding="utf-8"))
+
     for result in search_result.results:
         playlist = result.fetch_tracks()
 
@@ -38,8 +41,12 @@ def search_playlists(query):
                 "artists": ', '.join(artist.name for artist in artists),
                 "album": album.title,
                 "album_id": album.id,
+                "time": datetime.datetime.now(),
             }
+
+            writer.writerow(list(info.values()))
             results.append(info)
+
     return results
 
 

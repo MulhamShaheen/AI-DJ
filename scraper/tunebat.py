@@ -1,12 +1,17 @@
 import requests
 import json
 from urllib.parse import urlencode
+import urllib3
 
+urllib3.disable_warnings()
 
 with open('token.json', 'r') as fp:
-    TOKEN = json.load(fp)["scrapeops_token"]
+    data = json.load(fp)
+    TOKEN = data["scrapeops_token"]
+    zenrows_token = data["zenrows_token"]
 
-dic = {
+
+props_dict = {
     "n": "title",
     "as": "artists",
     "an": "album",
@@ -27,6 +32,13 @@ def get_scrapeops_url(url):
     payload = {'api_key': TOKEN, 'url': url}
     proxy_url = 'https://proxy.scrapeops.io/v1/?' + urlencode(payload)
     return proxy_url
+
+
+def get_zenrow_url(url):
+    url = "https://httpbin.io/anything"
+    proxy = f"http://{zenrows_token}:@proxy.zenrows.com:8001"
+    proxies = {"http": proxy, "https": proxy}
+    return proxies
 
 
 def search_tracks(term, page):
@@ -57,10 +69,11 @@ def search_tracks(term, page):
         'sec-fetch-site': 'same-site',
         'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36'
     }
-
-    response = requests.get(get_scrapeops_url(url),)
+    # url_scrapeops = get_scrapeops_url(url)
+    proxies = get_zenrow_url(url)
+    response = requests.get(url, proxies=proxies, verify=False)
     item = json.loads(response.content)['data']['items'][0]
     info = {
-        v: item[list(dic.keys())[i]] for i, v in enumerate(dic.values())
+        v: item[list(props_dict.keys())[i]] for i, v in enumerate(props_dict.values())
     }
     return info
