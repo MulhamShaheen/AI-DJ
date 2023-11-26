@@ -6,5 +6,6 @@ from .views import *
 
 urlpatterns = [
     path('', song_list),
-    re_path(r'^api/students/(\d+)$', song_detail),
+    path('predict/', prompt_prediction),
+    re_path(r'^api/songs/(\d+)$', song_detail),
 ]

@@ -63,3 +63,4 @@ def get_notes(color):
 
 # rgb_colors = get_colors(get_image('sample_image.jpg'), 8, False)
 # print(get_notes(rgb_colors[1]))
+
