@@ -6,7 +6,7 @@ FEATURE_LIST = [
 ]
 
 
-class RecoDummyPipline:
+class RecoDummyPipeline:
     def __init__(self, features: list):
         for f in features:
             if f not in FEATURE_LIST:
@@ -23,7 +23,7 @@ class RecoDummyPipline:
         return out_filters
 
 
-class TextDummyPipline:
+class TextDummyPipeline:
     def __init__(self, prompt: str):
         # LOAD DATA AND FITTING
         self.prompt = prompt
