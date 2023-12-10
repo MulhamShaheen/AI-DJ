@@ -1,5 +1,3 @@
-
-
 FEATURE_LIST = [
     "text_emb",
     "activity",
@@ -24,3 +22,12 @@ class RecoDummyPipline:
 
         return out_filters
 
+
+class TextDummyPipline:
+    def __init__(self, prompt: str):
+        # LOAD DATA AND FITTING
+        self.prompt = prompt
+
+    def predict_list(self):
+        # DO MAGIC
+        return [1, 2, 3, 4]
