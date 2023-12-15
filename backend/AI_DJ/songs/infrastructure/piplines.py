@@ -24,10 +24,17 @@ class RecoDummyPipline:
 
 
 class TextDummyPipline:
-    def __init__(self, prompt: str):
+    def __init__(self):
         # LOAD DATA AND FITTING
-        self.prompt = prompt
+        pass
 
-    def predict_list(self):
+    def sample_mapper(self, sample):
+        id = 0
+        return id
+
+    def predict_list(self, prompt: str):
         # DO MAGIC
+        # predict
+        # map
+
         return [1, 2, 3, 4]
