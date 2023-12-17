@@ -77,8 +77,8 @@
 
 ```mermaid
 flowchart TD
-    user_pic[fa:fa-image]
-    user_text[fa:fa-file-lines]
+    user_pic[fa:fa-image user image input]
+    user_text[fa:fa-file-lines user text input]
     cv((CV))
     nlp((NLP))
     text_embedding[embedding]
