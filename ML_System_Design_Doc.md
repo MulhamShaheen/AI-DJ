@@ -115,8 +115,6 @@ flowchart TD
     search ==cosine, etc==> result
 ```
 
-![AI DJ architecture draft](images/AI_DJ_architecture_draft.jpg)
-
 ### 2.3 Этапы решения задачи
 
 - Этап 1 — подготовка данных
