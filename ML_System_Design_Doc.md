@@ -75,6 +75,46 @@
 
 ### 2.2 Блок-схема решения
 
+```mermaid
+flowchart TD
+    user_pic[fa:fa-image]
+    user_text[fa:fa-file-lines]
+    cv((CV))
+    nlp((NLP))
+    text_embedding[embedding]
+    picture_embedding[embedding]
+    picture_features[[features]]
+    subgraph concatenation
+        concatenated_picture_embedding[CV embedding]
+        concatenated_picture_features[CV features]
+        concatenated_nlp_embedding[NLP embedding]
+    end
+    user_pic --> cv
+    user_text --> nlp
+    cv --> picture_embedding & picture_features
+    nlp --> text_embedding
+    picture_embedding & picture_features & text_embedding --> concatenation
+
+    subgraph Songs_DB
+        direction RL
+        songs_db[(DB)]
+        subgraph DB contents
+            album_cover[fa:fa-portrait album cover]
+            lyrics[fa:fa-align-center lyrics]
+            artist[fa:fa-a fa:fa-b fa:fa-c artist, genre, etc]
+            featuresartist[fa:fa-1 fa:fa-2 fa:fa-3 tempo, danceability, etc]
+        end
+    end
+
+    search(((SEARCH)))
+
+    concatenation & Songs_DB --> search
+
+    result{{"result (1 song)"}}
+
+    search ==cosine, etc==> result
+```
+
 ![AI DJ architecture draft](images/AI_DJ_architecture_draft.jpg)
 
 ### 2.3 Этапы решения задачи
