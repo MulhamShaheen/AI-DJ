@@ -2,6 +2,7 @@ import pandas as pd
 from yandex import search_playlists
 from tunebat import search_tracks, props_dict
 import csv
+import yaml
 
 
 def scrap_playlist_data(keyword, count=200):
@@ -35,5 +36,24 @@ def create_subset(query: list, label: str):
 
     return df
 
+def csv_to_yaml(csv_file: str, yaml_path:str = "data.yaml"):
+    f = open(csv_file, "r", encoding="utf8")
+    reader = csv.reader(f)
+    to_yaml = []
+    for i, raw in enumerate(reader):
+        to_yaml.append({})
+        for j, prop in enumerate(raw):
+            if j == 14:
+                to_yaml[i]["label"] = prop
+                break
+            to_yaml[i][list(props_dict.values())[j]] = prop
 
-create_subset(["Workout energetic music", "Music for sport"], "sport")
+    with open(yaml_path, 'w') as f:
+        yaml.dump(to_yaml, f)
+
+    f.close()
+
+
+csv_to_yaml("songs_database.csv")
+
+# create_subset(["Workout energetic music", "Music for sport"], "sport")
