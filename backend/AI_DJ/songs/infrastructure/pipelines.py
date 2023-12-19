@@ -13,11 +13,11 @@ FEATURE_LIST = [
 ]
 
 
-class RecoDummyPipeline:
+class RecoDummyPipline:
     def __init__(self, features: list):
         for f in features:
             if f not in FEATURE_LIST:
-                print("features should be in one of:", FEATURE_LIST)
+                print("features should be in one of: ", FEATURE_LIST)
                 return
         self.features = features
 
@@ -30,13 +30,20 @@ class RecoDummyPipeline:
         return out_filters
 
 
-class TextDummyPipeline:
-    def __init__(self, prompt: str):
+class TextDummyPipline:
+    def __init__(self):
         # LOAD DATA AND FITTING
-        self.prompt = prompt
+        pass
 
-    def predict_list(self):
+    def sample_mapper(self, sample):
+        id = 0
+        return id
+
+    def predict_list(self, prompt: str):
         # DO MAGIC
+        # predict
+        # map
+
         return [1, 2, 3, 4]
 
 
