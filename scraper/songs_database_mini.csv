@@ -1,0 +1,41 @@
+title, artists, album, popularity, camelot, BPM, key, acousticness, happiness, instrumentalness, liveness, loudness, danceability, energy, label
+Thnks fr th Mmrs,['Fall Out Boy'],Infinity On High,81,3A,155,B♭ Minor,0.00511,0.588,0,0.106,-5.057,0.459,0.891,sport
+Generation Z,['NOFX'],First Ditch Effort,31,11B,95,A Major,0.00606,0.315,4.68E-05,0.152,-4.73,0.289,0.929,sport
+Alright,['Junior Doctor'],Clumsy Words and Bad Pickup Lines,23,8A,155,A Minor,0.000805,0.503,0,0.333,-3.991,0.445,0.934,sport
+Goodbye Bad Times,['Pennywise'],Never Gonna Die,26,12A,157,C# Minor,0.0016,0.591,0.000786,0.401,-3.906,0.532,0.908,sport
+Alone,['Slick Shoes'],Slick Shoes,18,11B,104,A Major,0.0003,0.515,0,0.182,-3.37,0.439,0.896,sport
+Radiate,['Puddle Of Mudd'],Famous,46,2B,145,F# Major,0.0117,0.327,0,0.101,-5.191,0.527,0.895,sport
+Gold Steps,['Neck Deep'],Life's Not Out To Get You,57,8B,185,C Major,1.21E-05,0.612,0.525,0.111,-3.47,0.323,0.953,sport
+Stalker,['Goldfinger'],Disconnection Notice,34,8B,133,C Major,0.0024,0.659,0,0.158,-5.458,0.63,0.84,sport
+Shooting Stars,['Cauterize'],So Far From Real,31,3B,97,C# Major,0.000129,0.329,0.0246,0.0664,-4.002,0.491,0.916,sport
+She Lied To The FBI,['Alkaline Trio'],My Shame Is True (Deluxe Edition),49,12B,180,E Major,0.00539,0.502,0,0.345,-4.842,0.405,0.968,sport
+Jump,['Simple Plan'],Still Not Getting Any,37,4B,105,A♭ Major,0.00299,0.613,7.84E-06,0.0381,-5.83,0.668,0.926,sport
+Kids in America,['LEN'],Digimon: The Movie (Music From The Motion Picture),37,12A,167,C# Minor,0.0022,0.303,0.0102,0.115,-4.718,0.51,0.849,sport
+Kids In The Street,['The All-American Rejects'],Kids In The Street,32,9B,138,G Major,0.000771,0.316,0.0197,0.231,-5.954,0.519,0.921,sport
+Flavor Of The Weak,['American Hi-Fi'],American Hi-Fi,63,6B,151,B♭ Major,0.000628,0.504,1.95E-05,0.33,-3.018,0.388,0.952,sport
+Take My Hand,['Simple Plan'],Simple Plan,41,12A,155,C# Minor,1.84E-05,0.402,3.09E-06,0.45,-3.425,0.407,0.935,sport
+She Doesn't Think That It's Ever Gonna Work Out,['Bowling For Soup'],Drunk Dynasty,19,10B,126,D Major,0.00212,0.82,1.98E-06,0.056,-4.514,0.615,0.841,sport
+Seven Days a Week,['The Sounds'],Living In America,20,2B,150,F# Major,0.00118,0.727,0,0.145,-2.503,0.458,0.88,sport
+Change Your Mind,['The All-American Rejects'],Move Along,33,7B,150,F Major,0.000414,0.578,0,0.127,-4.502,0.504,0.835,sport
+Lucky Street,['Go Radio'],Lucky Street,18,8B,148,C Major,0.00228,0.403,0,0.419,-3.932,0.402,0.925,sport
+Epic,['Tsunami Bomb'],The Definitive Act,13,8A,152,A Minor,3.50E-06,0.268,0.321,0.143,-3.478,0.445,0.946,sport
+BewareOfDog,['BONES'],OFFLINE,38,6B,135,B♭ Major,0.0158,0.243,0,0.111,-9.389,0.712,0.553,background
+ADVENTURE,['ZOORAB'],Eternal Lounge,0,8A,180,A Minor,0.0225,0.337,0.869,0.108,-10.815,0.491,0.542,background
+Counting Song,['Bounce Patrol'],Learning Songs,49,11B,106,A Major,0.0643,0.886,0,0.59,-5.056,0.946,0.807,background
+FULL GROWN,['Field Medic'],"Me, My Gibberish, & The Moon",51,12B,118,E Major,0.969,0.437,0.146,0.108,-14.568,0.443,0.222,background
+Refreshing Time,['Ogi Feel the Beat'],Refreshing Time,1,12A,140,C# Minor,0.0845,0.461,0.878,0.0991,-11.115,0.64,0.273,background
+Venice,['Gyvus'],Venice,51,4B,95,A♭ Major,0.333,0.801,0.88,0.148,-7.351,0.881,0.561,background
+Watery Soul,"['Ghostnaut', 'Elior', 'Rémi Cormier']",Watery Soul,33,7A,84,D Minor,0.295,0.339,0.897,0.141,-7.251,0.755,0.436,background
+Ruff Ryders' Anthem,['DMX'],It's Dark And Hell Is Hot,73,3A,91,B♭ Minor,0.0564,0.74,1.02E-06,0.201,-8.093,0.88,0.577,background
+Oreo,"['Shotgun Willy', 'Yung Craka']",Oreo,64,1B,137,B Major,0.745,0.88,2.35E-06,0.303,-5.557,0.791,0.778,background
+Elevation,"['Saib', 'Atlantic Chill']",Elevation,29,8B,76,C Major,0.881,0.0384,0.89,0.102,-14.186,0.587,0.328,background
+Chillin Taste of Freedom,['Ogi Feel the Beat'],Refreshing Time,0,10A,144,B Minor,0.126,0.153,0.928,0.165,-13.627,0.465,0.329,background
+The Next Episode,"['Dr. Dre', 'Snoop Dogg']",2001,82,3A,95,B♭ Minor,0.0281,0.309,0,0.0856,-2.429,0.922,0.909,background
+"Konoha Peace (From ""Naruto"") - Piano",['Nikolai Tal'],"Anime Songs On Piano, Vol. 1",50,10B,110,D Major,0.988,0.744,0.968,0.113,-24.293,0.63,0.0982,background
+Therapy Song,['Secret Recipe'],Time's Arrow,35,3B,120,C# Major,0.013,0.163,0.766,0.112,-9.28,0.743,0.453,background
+Solar Serenade Symphony,['ica gochi'],Solar Serenade Symphony,1,8B,80,C Major,0.536,0.299,0.729,0.118,-4.51,0.684,0.621,background
+Amsterdam,['Gregory Alan Isakov'],The Weatherman,74,5B,152,E♭ Major,0.921,0.532,0.135,0.115,-12.51,0.553,0.429,background
+Mystery Road,"['Lofi Fruits Music', 'Chill Fruits Music']",Old School Songs But It's Lofi Fruits Remix,44,8B,75,C Major,0.775,0.133,0.881,0.112,-21.204,0.593,0.235,background
+Sweet Dreams (Are Made of This) - Piano Version,['Sander Melodies'],Piano Covers (Vol. 1),47,5A,182,C Minor,0.985,0.133,0.952,0.104,-20.933,0.448,0.0869,background
+Shibui,['Jhove'],Soothing Breeze,39,11B,120,A Major,0.869,0.109,0.76,0.127,-11.09,0.717,0.353,background
+Launch,['Mincher'],Follow Up,28,1B,116,B Major,0.149,0.751,0.689,0.111,-14.798,0.928,0.279,background
