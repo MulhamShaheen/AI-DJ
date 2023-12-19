@@ -1,5 +1,5 @@
-from .infrastructure.piplines import *
+from .infrastructure.pipelines import *
 
 
-dummy_pipeline = RecoDummyPipline(features=["text_emb"])
-dummy_text_pipeline = TextDummyPipline(prompt="Dance")
+dummy_pipeline = RecoDummyPipeline(features=["text_emb"])
+dummy_text_pipeline = TextDummyPipeline(prompt="Dance")
