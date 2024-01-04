@@ -1,12 +1,13 @@
 import os
 import json
 from yandex_music import Client
+from yandex_music.exceptions import NotFoundError
+
 import csv
 import datetime
 
 with open('token.json', 'r') as fp:
     TOKEN = json.load(fp)["yt_token"]
-
 
 client = Client(TOKEN).init()
 
@@ -31,7 +32,6 @@ def search_playlists(query):
         playlist = result.fetch_tracks()
 
         for track_short in playlist:
-
             track = track_short.track
             artists = track.artists
             album = track.albums[0]
@@ -126,7 +126,18 @@ def get_album(id):
     return album, tracks
 
 
+def get_lyrics(song_id: int) -> str:
+    track = client.tracks(song_id)[0]
+    try:
+        lyrics = track.get_lyrics()
+        text = lyrics.fetch_lyrics()
+        return text
+
+    except NotFoundError:
+        print('Текст песни отсутствует')
+
+
 if __name__ == '__main__':
     while True:
         input_query = input('Введите поисковой запрос: ')
-        search_playlists(input_query)
+        get_lyrics(int(input_query))
