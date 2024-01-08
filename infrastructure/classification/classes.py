@@ -47,3 +47,35 @@ class Activity:
     @property
     def get_name(self):
         return self._activity
+
+
+class DressCode:
+
+    def __init__(self,
+                 dress_code_id: Optional[int] = None,
+                 dress_code: Optional[str] = None,
+                 ):
+        """
+           :param dress_code_id: int value of predicted class
+           :param dress_code: str value of the class name
+           """
+
+        self._dress_code_dict = {
+            0: "casual",
+            1: "sport",
+            2: "formal",
+        }
+        self._dress_code_count = 14
+
+        if dress_code is None:
+            if dress_code_id is None or dress_code_id > self._dress_code_count:
+                raise ValueError(f'dress_code_id is not correct. Got {dress_code_id}')
+            else:
+                self._dress_code = self._dress_code_dict[dress_code_id]
+        else:
+            self._dress_code_id = list(self._dress_code_dict.values()).index(dress_code)
+            self._dress_code = dress_code
+
+    @property
+    def get_name(self):
+        return self._dress_code
