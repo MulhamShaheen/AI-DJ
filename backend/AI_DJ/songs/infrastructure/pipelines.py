@@ -3,7 +3,12 @@ from transformers import BertModel, BertTokenizerFast
 import torch.nn.functional as F
 import pandas as pd
 from datasets import Dataset
-from typing import List
+from typing import List, Union, Literal
+from pathlib import Path
+
+from .detection.models import YoloV5Detector
+from .classification.models import DenseNetClassifier
+from .classification.classes import ACTIVITY_DICT, DRESS_DICT
 
 FEATURE_LIST = [
     "text_emb",
@@ -13,7 +18,7 @@ FEATURE_LIST = [
 ]
 
 
-class RecoDummyPipline:
+class RecoDummyPipeline:
     def __init__(self, features: list):
         for f in features:
             if f not in FEATURE_LIST:
@@ -28,23 +33,6 @@ class RecoDummyPipline:
             out_filters[f] = 0
 
         return out_filters
-
-
-class TextDummyPipline:
-    def __init__(self):
-        # LOAD DATA AND FITTING
-        pass
-
-    def sample_mapper(self, sample):
-        id = 0
-        return id
-
-    def predict_list(self, prompt: str):
-        # DO MAGIC
-        # predict
-        # map
-
-        return [1, 2, 3, 4]
 
 
 class TextFaissPipeline:
@@ -81,3 +69,36 @@ class TextFaissPipeline:
                                                                    self._get_embeddings(
                                                                        [prompt]).cpu().detach().numpy(), k=top_k)
         return scores, samples
+
+
+class HumanDetectionPipeline:
+    def __init__(self):
+        self.detector = YoloV5Detector()
+
+    def detect_humans(self, img_path: str, media_path: str = "media/detections/"):
+        path = media_path + Path(img_path).name
+        self.detector.save_predictions(img_path, path)
+
+        return path
+
+
+class ActivityClassificationPipeline:
+    def __init__(self, model_path: str, target: Literal["dress_code", "activity"]):
+        self.classifier = DenseNetClassifier(detection_model_path=model_path, target=target)
+        if target is "activity":
+            self.classes = ACTIVITY_DICT.values()
+        else:
+            self.classes = DRESS_DICT.values()
+
+    def predict(self, img_path: Union[str, List[str]]):
+        pred_dict = {c: 0 for c in ACTIVITY_DICT.values()}
+        if type(img_path) is str:
+            pred = self.classifier.predict_class(img_path)
+            pred_dict[pred.predicted_class.get_name()] += 1
+
+        elif type(img_path) is List:
+            for img in img_path:
+                pred = self.classifier.predict_class(img)
+                pred_dict[pred.predicted_class.get_name()] += 1
+
+        return pred_dict
