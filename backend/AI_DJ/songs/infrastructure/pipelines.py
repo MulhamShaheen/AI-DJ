@@ -1,9 +1,11 @@
+import os
+
 import torch
 from transformers import BertModel, BertTokenizerFast
 import torch.nn.functional as F
 import pandas as pd
 from datasets import Dataset
-from typing import List, Union, Literal
+from typing import List, Union, Literal, Tuple, Dict
 from pathlib import Path
 
 from .detection.models import YoloV5Detector
@@ -75,14 +77,14 @@ class HumanDetectionPipeline:
     def __init__(self):
         self.detector = YoloV5Detector()
 
-    def detect_humans(self, img_path: str, media_path: str = "media/detections/"):
+    def __call__(self, img_path: str, media_path: str = "media/detections/") -> str:
         path = media_path + Path(img_path).name
         self.detector.save_predictions(img_path, path)
 
         return path
 
 
-class ActivityClassificationPipeline:
+class ClassificationPipeline:
     def __init__(self, model_path: str, target: Literal["dress_code", "activity"]):
         self.classifier = DenseNetClassifier(detection_model_path=model_path, target=target)
         if target is "activity":
@@ -90,8 +92,8 @@ class ActivityClassificationPipeline:
         else:
             self.classes = DRESS_DICT.values()
 
-    def predict(self, img_path: Union[str, List[str]]):
-        pred_dict = {c: 0 for c in ACTIVITY_DICT.values()}
+    def __call__(self, img_path: Union[str, List[str]]) -> Dict[str: int]:
+        pred_dict = {c: 0 for c in self.classes.values()}
         if type(img_path) is str:
             pred = self.classifier.predict_class(img_path)
             pred_dict[pred.predicted_class.get_name()] += 1
@@ -102,3 +104,25 @@ class ActivityClassificationPipeline:
                 pred_dict[pred.predicted_class.get_name()] += 1
 
         return pred_dict
+
+
+class EnsemblePipeline:
+    def __init__(
+            self,
+            detection_pipeline: HumanDetectionPipeline,
+            activity_pipeline: ClassificationPipeline,
+            dress_code_pipeline: ClassificationPipeline,
+    ):
+        self.detection_pipeline = detection_pipeline
+        self.activity_pipeline = activity_pipeline
+        self.dress_code_pipeline = dress_code_pipeline
+
+    def __call__(self, img_path: str) -> Tuple[Dict[str: int], Dict[str: int]]:
+        detects_path = self.detection_pipeline(img_path)
+        person_dir = os.scandir(detects_path+"/crops/person/")
+        img_paths = [f.path for f in person_dir]
+
+        activity_dict = self.activity_pipeline(img_path=img_paths)
+        dress_dict = self.dress_code_pipeline(img_path=img_paths)
+
+        return activity_dict, dress_dict
