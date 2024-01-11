@@ -4,6 +4,30 @@ from typing import Optional, Tuple
 import cv2
 import numpy as np
 
+ACTIVITY_DICT = {
+    0: "calling",
+    1: "clapping",
+    2: "cycling",
+    3: "dancing",
+    4: "drinking",
+    5: "eating",
+    6: "fighting",
+    7: "hugging",
+    8: "laughing",
+    9: "listening_to_music",
+    10: "running",
+    11: "sitting",
+    12: "sleeping",
+    13: "texting",
+    14: "using_laptop",
+}
+
+DRESS_DICT = {
+    0: "casual",
+    1: "sport",
+    2: "formal",
+}
+
 
 class Activity:
 
@@ -16,23 +40,7 @@ class Activity:
            :param activity: str value of the class name
            """
 
-        self._activity_dict = {
-            0: "calling",
-            1: "clapping",
-            2: "cycling",
-            3: "dancing",
-            4: "drinking",
-            5: "eating",
-            6: "fighting",
-            7: "hugging",
-            8: "laughing",
-            9: "listening_to_music",
-            10: "running",
-            11: "sitting",
-            12: "sleeping",
-            13: "texting",
-            14: "using_laptop",
-        }
+        self._activity_dict = ACTIVITY_DICT
         self._activity_count = 14
 
         if activity is None:
