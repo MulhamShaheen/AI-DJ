@@ -48,6 +48,8 @@ class TextDummyPipline:
 
 
 class TextFaissPipeline:
+    """Implements a pipeline for text ranking with FAISS index."""
+
     def __init__(self, model_checkpoint: str = 'setu4993/LEALLA-small'):
         # load model
         if 'LEALLA' in model_checkpoint:
