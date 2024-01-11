@@ -55,11 +55,13 @@ class TextFaissPipeline:
             self.model = BertModel.from_pretrained(model_checkpoint)
             self.model = self.model.eval()
 
-        df_lyrics = pd.read_csv(
-            'https://raw.githubusercontent.com/MulhamShaheen/AI-DJ/dev/search/scraper/songs_database_mini.csv')
+        df_lyrics = pd.read_csv('latest_database_with_lyrics.csv')  # dataset for testing
         lyrics_dataset = Dataset.from_pandas(df_lyrics)
-        lyrics_dataset = lyrics_dataset.map(lambda x: {'lyrics_embeddings': self._get_embeddings(x['lyrics'])[0]})
-        lyrics_dataset.add_faiss_index(column='lyrics_embeddings')
+        lyrics_dataset = lyrics_dataset.map(
+            # title + lyrics (optional)
+            lambda x: {'text_embeddings': self._get_embeddings(x['title'] + ' ' + (x['lyrics'] or ''))[0]}
+        )
+        lyrics_dataset.add_faiss_index(column='text_embeddings')
         self.lyrics_dataset = lyrics_dataset
 
     def _get_embeddings(self, texts: List[str], normalize=True):
@@ -77,7 +79,7 @@ class TextFaissPipeline:
             return embeddings
 
     def predict_list(self, prompt: str, top_k=10):
-        scores, samples = self.lyrics_dataset.get_nearest_examples('lyrics_embeddings',
+        scores, samples = self.lyrics_dataset.get_nearest_examples('text_embeddings',
                                                                    self._get_embeddings(
                                                                        [prompt]).cpu().detach().numpy(), k=top_k)
         return scores, samples
