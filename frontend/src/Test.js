@@ -1,7 +1,5 @@
 import {Link} from "react-router-dom";
-import {useState} from "react";
-import axios from "axios";
-import {SONG_LIST_URL} from "./index";
+import {useLocation} from 'react-router-dom';
 
 
 function ListItem({title, artist, popularity}) {
@@ -21,11 +19,9 @@ function ListItem({title, artist, popularity}) {
     );
 }
 
-export default function Test() {
-
-    const [songs, setSongs] = useState([])
-
-    axios.get(SONG_LIST_URL).then(data => setSongs(data.data))
+export default function Test(state) {
+    const location = useLocation();
+    var songs = location.state.songs
     return (
         <div >
             <ul className="max-w-screen-xl divide-y divide-gray-200 dark:divide-gray-700">
