@@ -1,6 +1,6 @@
 import {Link} from "react-router-dom";
 import axios from "axios";
-import {SONG_LIST_URL} from "./index";
+import {PREDICT_URL, SONG_LIST_URL} from "./index";
 import {useState} from "react";
 import {useNavigate} from "react-router-dom";
 
@@ -14,9 +14,9 @@ export default function Form() {
     const handleSubmit = async (event) => {
         event.preventDefault();
         const formData = new FormData();
-        formData.append("photo", file);
+        formData.append("image", file);
         formData.append("text", text);
-        const resp = axios.get(SONG_LIST_URL, formData, {}).then((response) => {
+        const resp = axios.post(PREDICT_URL, formData, {}).then((response) => {
                 console.log(response.data)
                 setSongs(response.data)
                 console.log(songs)
