@@ -45,11 +45,12 @@ class TextFaissPipeline:
             self.model = BertModel.from_pretrained(model_checkpoint)
             self.model = self.model.eval()
 
-        df_lyrics = pd.read_csv(
-            'https://raw.githubusercontent.com/MulhamShaheen/AI-DJ/dev/search/scraper/songs_database_mini.csv')
+        df_lyrics = pd.read_csv('latest_database_with_lyrics.csv', encoding="utf-8")
         lyrics_dataset = Dataset.from_pandas(df_lyrics)
-        lyrics_dataset = lyrics_dataset.map(lambda x: {'lyrics_embeddings': self._get_embeddings(x['lyrics'])[0]})
-        lyrics_dataset.add_faiss_index(column='lyrics_embeddings')
+        lyrics_dataset = lyrics_dataset.map(
+            lambda x: {'text_embeddings': self._get_embeddings(x['title'] + ' ' + (x['lyrics'] or ''))[0]}
+        )
+        lyrics_dataset.add_faiss_index(column='text_embeddings')
         self.lyrics_dataset = lyrics_dataset
 
     def _get_embeddings(self, texts: List[str], normalize=True):
@@ -67,7 +68,7 @@ class TextFaissPipeline:
             return embeddings
 
     def predict_list(self, prompt: str, top_k=10):
-        scores, samples = self.lyrics_dataset.get_nearest_examples('lyrics_embeddings',
+        scores, samples = self.lyrics_dataset.get_nearest_examples('text_embeddings',
                                                                    self._get_embeddings(
                                                                        [prompt]).cpu().detach().numpy(), k=top_k)
         return scores, samples
@@ -92,16 +93,16 @@ class ClassificationPipeline:
         else:
             self.classes = DRESS_DICT.values()
 
-    def __call__(self, img_path: Union[str, List[str]]) -> Dict[str: int]:
-        pred_dict = {c: 0 for c in self.classes.values()}
+    def __call__(self, img_path: Union[str, List[str]]) -> Dict[str, int]:
+        pred_dict = {c: 0 for c in self.classes}
         if type(img_path) is str:
             pred = self.classifier.predict_class(img_path)
-            pred_dict[pred.predicted_class.get_name()] += 1
+            pred_dict[pred.predicted_class.get_name] += 1
 
-        elif type(img_path) is List:
+        elif type(img_path) is list:
             for img in img_path:
                 pred = self.classifier.predict_class(img)
-                pred_dict[pred.predicted_class.get_name()] += 1
+                pred_dict[pred.predicted_class.get_name] += 1
 
         return pred_dict
 
@@ -117,7 +118,7 @@ class EnsemblePipeline:
         self.activity_pipeline = activity_pipeline
         self.dress_code_pipeline = dress_code_pipeline
 
-    def __call__(self, img_path: str) -> Tuple[Dict[str: int], Dict[str: int]]:
+    def __call__(self, img_path: str) -> Tuple[Dict[str, int], Dict[str, int]]:
         detects_path = self.detection_pipeline(img_path)
         person_dir = os.scandir(detects_path+"/crops/person/")
         img_paths = [f.path for f in person_dir]

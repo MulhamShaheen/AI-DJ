@@ -64,14 +64,17 @@ class ResnetClassifier(DummyClassifier):
 class DenseNetClassifier(DummyClassifier):
     def __init__(self, detection_model_path: str, target: Literal["dress_code", "activity"]):
         super().__init__(detection_model_path)
-        self.model = densenet121()
+        if target == "activity":
+            self.model = densenet121(num_classes=15)
+        else:
+            self.model = densenet121()
         self.model.load_state_dict(torch.load(self.model_path))
         self.model.eval()
         self.target = target
 
     def predict_class(self, img_path: str, ) -> ClassifierPrediction:
         img = Image.open(img_path)
-        img = F.pil_to_tensor(img)
+        # img = F.pil_to_tensor(img)
 
         transform = transforms.Compose([
             transforms.Resize(
@@ -87,9 +90,9 @@ class DenseNetClassifier(DummyClassifier):
         probabilities = torch.nn.functional.softmax(out[0], dim=0)
         top_prob, top_catid = torch.topk(probabilities, 1)
         if self.target == "dress_code":
-            pred = ClassifierPrediction(predicted_class=DressCode(top_catid), probability=top_prob)
+            pred = ClassifierPrediction(predicted_class=DressCode(int(top_catid)), probability=top_prob)
         else:
-            pred = ClassifierPrediction(predicted_class=Activity(top_catid), probability=top_prob)
+            pred = ClassifierPrediction(predicted_class=Activity(int(top_catid)), probability=top_prob)
 
         return pred
 
