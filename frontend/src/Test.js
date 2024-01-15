@@ -1,8 +1,16 @@
 import {Link} from "react-router-dom";
 import {useLocation} from 'react-router-dom';
+import colors from "tailwindcss/colors";
 
 
 function ListItem({title, artist, link}) {
+    let button;
+    if  (link !== undefined && link !== null){
+        button = <a href={link}>listen in yandex.music</a>
+    }
+    else{
+        button = <span>not available on yandex.music</span>
+    }
     return (
         <li className="py-3 sm:py-4">
             <div className="flex items-center space-x-4">
@@ -12,7 +20,7 @@ function ListItem({title, artist, link}) {
                     <p className="text-sm text-gray-500 truncate dark:text-gray-400">{artist}</p>
                 </div>
                 <div className="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
-                    <a href={link}>listen in yandex.music</a>
+                    {button}
                 </div>
             </div>
         </li>

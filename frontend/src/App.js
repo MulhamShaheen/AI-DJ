@@ -8,7 +8,7 @@ function App() {
     <Router>
         <Routes>
             <Route exact path='/' element={<Layout/>}>
-                <Route index element={<MusicList/>} />
+                <Route index element={<Form/>} />
                 <Route path='/desc' element={<Form/>} />
                 <Route path='/test' element={<Test/>} />
             </Route>

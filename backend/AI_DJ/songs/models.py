@@ -1,6 +1,5 @@
 from django.db import models
 
-
 # Create your models here.
 
 class Artist(models.Model):
@@ -23,6 +22,11 @@ class Song(models.Model):
     danceability = models.IntegerField(default=0)
     energy = models.IntegerField(default=0)
     label = models.CharField(max_length=200, default="background")
+    y_id = models.IntegerField(default=0)
+    lyrics = models.TextField(max_length=2000, null=True, blank=True)
 
     def __str__(self):
         return f"{self.title} {self.artists}"
+
+    def get_link(self):
+        return f"https://music.yandex.ru/track/{self.y_id}"

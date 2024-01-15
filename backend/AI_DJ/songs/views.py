@@ -1,10 +1,11 @@
 from django.shortcuts import render
+import pandas as pd
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from rest_framework import status
 from .serializers import *
 from .utils import handle_uploaded_file
-from . import dummy_pipeline
+from . import ensamble_pipeline, ranker
 
 
 @api_view(['GET', 'POST'])
@@ -51,7 +52,20 @@ def prompt_prediction(request):
 
         upload_path = handle_uploaded_file(uploaded_file)
 
-    task = dummy_pipeline.predict_list(data["prompt"], upload_path) # rabbitmq here
+    act_preds, dress_code_preds = ensamble_pipeline(upload_path)
+    print(act_preds)
+    print(dress_code_preds)
+    reco_df = ranker.rank(data["text"], act_preds, dress_code_preds)
 
-    return Response(status=status.HTTP_201_CREATED, data={"message": "Task is created, and processing.",
-                                                          "task": {"id": 0}})
+    data = []
+    for index, row in reco_df.iterrows():
+        if not pd.isna(row['yt_id']):
+            link = f"https://music.yandex.ru/track/{int(row['yt_id'])}"
+        else:
+            link = None
+        data.append({
+            "title": row["title"],
+            "artist": row["artists"],
+            "link": link
+        })
+    return Response(status=status.HTTP_201_CREATED, data=data)

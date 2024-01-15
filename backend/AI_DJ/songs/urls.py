@@ -7,5 +7,5 @@ from .views import *
 urlpatterns = [
     path('', song_list),
     path('predict/', prompt_prediction),
-    re_path(r'^api/songs/(\d+)$', song_detail),
+    path('songs/', song_detail),
 ]
